@@ -1,0 +1,12 @@
+{
+  "name": "contrast-pair-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline opaque sRGB text contrast inspector",
+  "license": "MIT",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "check": "node --check contrast.js && node --check app.js && node --check tests/contrast.test.cjs && node --check tests/app.test.cjs && node --check tests/page.test.cjs"
+  }
+}

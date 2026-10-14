@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="An offline, opaque sRGB color-pair contrast inspector. No uploads, accounts or dependencies.">
+  <title>Contrast Pair Lab</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="contrast.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#controls">Skip to color inputs</a>
+  <header>
+    <p class="eyebrow">A small tool for more readable interfaces</p>
+    <h1>Contrast Pair Lab<span aria-hidden="true">.</span></h1>
+    <p>Two colors. A live specimen. The numbers that matter.</p>
+  </header>
+  <main>
+    <noscript><p class="notice">JavaScript is required for calculation. Enable it and reload; no colors have been checked.</p></noscript>
+    <div class="workbench">
+      <section id="controls" aria-labelledby="input-heading" tabindex="-1">
+        <h2 id="input-heading">01 / Color pair</h2>
+        <p id="hex-hint">Opaque sRGB hex only: #RGB or #RRGGBB.</p>
+        <label for="foreground">Text color</label>
+        <input id="foreground" type="text" value="#183A37" maxlength="32" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="hex-hint foreground-error">
+        <p class="error" id="foreground-error"></p>
+        <label for="background">Background color</label>
+        <input id="background" type="text" value="#F5F1E8" maxlength="32" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="hex-hint background-error">
+        <p class="error" id="background-error"></p>
+        <button type="button" id="swap" disabled>Swap text &amp; background</button>
+        <label for="preset" class="sample-label">Try a sample pair</label>
+        <select id="preset">
+          <option value="">Choose a sample…</option>
+          <option value="ink">Deep ink / paper</option>
+          <option value="mono">Black / white</option>
+          <option value="gray">Gray / white — AA normal fails</option>
+          <option value="low">Light gray / white — low contrast</option>
+        </select>
+        <p class="privacy">Local by design. Nothing is uploaded or saved by the app.</p>
+      </section>
+      <section class="specimen" aria-labelledby="preview-heading">
+        <h2 id="preview-heading">02 / Live specimen</h2>
+        <p id="pair-label" class="mono">Preview unavailable</p>
+        <div id="preview">
+          <div id="preview-content" hidden>
+            <p class="preview-large">Make room<br>for readability.</p>
+            <p class="preview-normal">This is normal-size text. A beautiful palette should also be easy to read.</p>
+            <p class="preview-bold">This is 14pt bold text.</p>
+          </div>
+        </div>
+        <p class="caption">Specimen colors may intentionally fail. Controls and results keep their own fixed colors.</p>
+      </section>
+    </div>
+    <section class="results" aria-labelledby="results-heading">
+      <div class="result-title"><h2 id="results-heading">03 / Text contrast</h2><p id="ratio" class="ratio">—</p></div>
+      <p>Ratio shown to two decimal places. Pass/fail uses the unrounded value.</p>
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">WCAG 2.2 text contrast threshold checks</caption>
+          <thead><tr><th scope="col">Text size</th><th scope="col">AA minimum</th><th scope="col">AAA enhanced</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Normal</th><td><span id="aaNormal">Not checked</span><small>at least 4.5:1</small></td><td><span id="aaaNormal">Not checked</span><small>at least 7:1</small></td></tr>
+            <tr><th scope="row">Large</th><td><span id="aaLarge">Not checked</span><small>at least 3:1</small></td><td><span id="aaaLarge">Not checked</span><small>at least 4.5:1</small></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="summary" role="status" aria-live="polite" aria-atomic="true" class="sr-only">Not checked.</p>
+      <p class="caption">Large text means at least 18pt regular (24 CSS px) or 14pt bold. Font weight and rendering still affect readability.</p>
+    </section>
+    <aside aria-labelledby="scope-heading">
+      <h2 id="scope-heading">A pair check, not a certification</h2>
+      <p>This checks opaque sRGB text colors against WCAG 2.2 text contrast thresholds only. It does not audit a page, images, gradients, transparency, non-text controls, or overall accessibility. No APCA calculation.</p>
+      <p>Method: <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" rel="noreferrer">WCAG 1.4.3</a> and <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced.html" rel="noreferrer">1.4.6</a>. External references open only when you follow a link.</p>
+    </aside>
+  </main>
+  <footer>Contrast Pair Lab / MIT licensed / Works offline</footer>
+</body>
+</html>
